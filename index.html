@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Search Universities</title>
+		<title>Search Colleges</title>
 		<link rel="stylesheet" href="searchDisplay.css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +22,8 @@
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
+		
+		<link href="https://fonts.googleapis.com/css?family=Francois%20One" rel="stylesheet">
 	</head>
 	<body>
 		<span id="loader">
@@ -29,12 +31,12 @@
 			<span id="lr2"></span>
 			<span id="lr3"></span>
 		</span>
-		<h1 id="errElm" style="top:50%;text-align:center;color:#feffed;position:fixed;width:100%;text-shadow:black 1px 1px 2px;">Sorry, nothing here...</h1>
+		<h1 id="errElm" style="top:50%;text-align:center;color:#feffed;position:fixed;width:100%;text-shadow:black 1px 1px 2px;">Sorry, no results...</h1>
 		<div class="topnav">
-			<button class="selected" onclick="window.location.href='';">Search Colleges</button><button onclick="window.location.href='find-by-criteria';">Find Best Fit</button><button onclick="window.location.href='sat-act-prep';">SAT/ACT Prep</button>
+			<img src="logo_notext.png" width="36" style="margin: 2px;"/><span><button class="selected" onclick="window.location.href='';">Search Colleges</button><button onclick="window.location.href='find-by-criteria';">Find Best Fit</button><button onclick="window.location.href='sat-act-prep';">SAT/ACT Prep</button></span>
 		</div>
 		<div class="search-bar">
-			<input id="search-box" type="search" placeholder="Search for Universities..."/>
+			<input id="search-box" type="search" placeholder="Search for a College Name..."/>
 		</div>
 		<div class="result-container">
 			

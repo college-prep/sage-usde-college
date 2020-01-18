@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<title>Find Best Fit</title>
+		<link rel="stylesheet" href="searchDisplay.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="icons/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+		<link rel="manifest" href="icons/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+		
+		<link href="https://fonts.googleapis.com/css?family=Francois%20One" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+	</head>
+	<body>
+		<span id="loader">
+			<span id="lr1"></span>
+			<span id="lr2"></span>
+			<span id="lr3"></span>
+		</span>
+		<h1 id="errElm" style="top:50%;text-align:center;color:#feffed;position:fixed;width:100%;text-shadow:black 1px 1px 2px;">Sorry, no results...</h1>
+		<div class="topnav">
+			<img src="logo_notext.png" width="36" style="margin: 2px;"/><span><button onclick="window.location.href='index.html';">Search Colleges</button><button class="selected" onclick="window.location.href='';">Find Best Fit</button><button onclick="window.location.href='sat-act-prep';">SAT/ACT Prep</button></span>
+		</div>
+		<div class="search-bar" style="display: none;">
+			<input id="search-box" type="search" placeholder="Search for Universities..."/>
+		</div>
+		<div id="search-options" class="flex" style="position:relative; top: 120px;">
+			<div>
+				<input type="checkbox" id="c1"><label for="c1">SAT Score</label><br/>
+				<span id="i1">From <input type="number"/> to <input type="number"/></span>
+			</div>
+			<div>
+				<input type="checkbox" id="c2"><label for="c2">ACT Score</label><br/>
+				<span id="i2">From <input type="number"/> to <input type="number"/></span>
+			</div>
+			<div>
+				<input type="checkbox" id="c3"><label for="c3">Graduates&rsquo; Salary</label><br/>
+				<span id="i3">From <input type="number"/> to <input type="number"/></span>
+			</div>
+			<div>
+				<input type="checkbox" id="c4"><label for="c4">Acceptance Rate</label><br/>
+				<span id="i4">From <input type="number"/> to <input type="number"/></span>
+			</div>
+			<div>
+				<input type="checkbox" id="c5"><label for="c5">Tuition Cost</label><br/>
+				<span id="i5">From <input type="number"/> to <input type="number"/></span>
+			</div>
+			<div>
+				<input type="checkbox" id="c6"><label for="c6">Tuition Cost</label><br/>
+				<span id="i6">From <input type="number"/> to <input type="number"/></span>
+			</div>
+			<div>
+				<input type="checkbox" id="c7"><label for="c7">Subject Interest</label><br/>
+				<span id="i7">Select an Interest: <select>
+					<option hidden>Select...</option>
+					<option>Agriculture</option>
+					<option>Resources</option>
+					<option>Architecture</option>
+					<option>Ethnic Cultural Gender</option>
+					<option>Communication</option>
+					<option>Communications Technology</option>
+					<option>Computer</option>
+					<option>Personal Culinary</option>
+					<option>Education</option>
+					<option>Engineering</option>
+					<option>Engineering Technology</option>
+					<option>Language</option>
+					<option>Family Consumer Science</option>
+					<option>Legal</option>
+					<option>English</option>
+					<option>Humanities</option>
+					<option>Library</option>
+					<option>Biological</option>
+					<option>Mathematics</option>
+					<option>Military</option>
+					<option>Multidiscipline</option>
+					<option>Parks Recreation Fitness</option>
+					<option>Philosophy Religious</option>
+					<option>Theology Religious Vocation</option>
+					<option>Physical Science</option>
+					<option>Science Technology</option>
+					<option>Psychology</option>
+					<option>Security Law Enforcement</option>
+					<option>Public Administration Social Service</option>
+					<option>Social Science</option>
+					<option>Construction</option>
+					<option>Mechanic Repair Technology</option>
+					<option>Precision Production</option>
+					<option>Transportation</option>
+					<option>Visual Performing</option>
+					<option>Health</option>
+					<option>Business Marketing</option>
+					<option>History</option>
+				</select></span>
+			</div>
+			<div>
+				<input type="checkbox" id="c6"><label for="c6">Tuition Cost</label><br/>
+				<span id="i7">From <input type="number"/> to <input type="number"/></span>
+			</div>
+		</div>
+		<div class="result-container">
+			
+		</div>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="main.js"></script>
+	<script src="searchColleges.js"></script>
+	<script>
+		
+	</script>
+</html>

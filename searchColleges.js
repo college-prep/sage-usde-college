@@ -168,7 +168,7 @@ function drawChart(c) {
 	
 	if (hasPercentCount == 0) return;
   // Optional; add a title and set the width and height of the chart
-  var options = {'title': 'Courses', 'width': 350, 'height': 200, 'chartArea': {'width': '100%', 'height': '80%'},'tooltip':{'trigger': 'selection'}, 'backgroundColor': '#fafafa'};
+  var options = {'title': 'Courses', 'width': 450, 'height': 250, 'chartArea': {'width': '100%', 'height': '80%'},'tooltip':{'trigger': 'selection'}, 'backgroundColor': '#fafafa', 'titleTextStyle':{'fontSize':18}};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart-' + String(c.id)));
