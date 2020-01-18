@@ -5,31 +5,39 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="icons/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+		<link rel="manifest" href="icons/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
 	</head>
 	<body>
+		<span id="loader">
+			<span id="lr1"></span>
+			<span id="lr2"></span>
+			<span id="lr3"></span>
+		</span>
+		<h1 id="errElm" style="top:50%;text-align:center;color:#feffed;position:fixed;width:100%;text-shadow:black 1px 1px 2px;">Sorry, nothing here...</h1>
+		<div class="topnav">
+			<button class="selected" onclick="window.location.href='';">Search Colleges</button><button onclick="window.location.href='find-by-criteria';">Find Best Fit</button><button onclick="window.location.href='sat-act-prep';">SAT/ACT Prep</button>
+		</div>
 		<div class="search-bar">
 			<input id="search-box" type="search" placeholder="Search for Universities..."/>
 		</div>
 		<div class="result-container">
-			<div class="school-card">
-				<h1>Stanford University</h1>
-				<div class="flex">
-					<div>
-						<span><i class="fa fa-group"></i> 7056 students</span> 
-						<loc><i class="fa fa-map-marker"></i> Stanford, CA 94305</loc><br>
-						<span>Out of State Tuition: $49617</span><br>
-						<span>In-State Tuition: $49617</span><br>
-						<span>Graduation Rate: 74.71%</span><br>
-						<span>Median Earnings: $94000 per year</span><br>
-						<div id="piechart-243744"></div>
-					</div>
-					<div>
-						<h3>SAT Scores</h3>
-						
-						<h3>ACT Scores</h3>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
