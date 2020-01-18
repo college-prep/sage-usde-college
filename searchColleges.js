@@ -210,6 +210,7 @@ $(window).scroll(function() {
 			console.log(JSON.stringify(collegeList));
 			
 			if (collegeList.results.length == 0) {
+				busy = false;
 				return;
 			}
 			
