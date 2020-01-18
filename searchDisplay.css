@@ -37,6 +37,9 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+td:nth-child(1), th:nth-child(1) {
+  text-align: right;
+}
 
 #loader {
 	display: flex;
@@ -152,7 +155,6 @@ tr:nth-child(even) {
 .school-card {
 	width: 80%;
 	max-width: 800px;
-	min-height: 350px;
 	display: block;
 	border: 2px solid lightgray;
 	margin: 16px;
@@ -194,7 +196,6 @@ tr:nth-child(even) {
 	top: 48px;
 	position: relative;
 }
-
 #search-options > div {
 	padding: 16px;
 	min-width: 300px;
@@ -207,11 +208,9 @@ tr:nth-child(even) {
 	background-color: #fafafa;
 	text-align: center;
 }
-
 #search-options input[type="number"] {
 	width: 80px;
 }
-
 #search-options .label {
 	font-size: 20px;
 	font-weight: 600;
@@ -239,4 +238,64 @@ i.infoicon {
 	width: 16px;
 	height: 16px;
 	text-align: center;
+}
+
+.more-info {
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: 4;
+	position: fixed;
+	bottom: -100%;
+	left: 0;
+	background-color: #eee;
+	overflow: visible;
+	transition: bottom 1s;
+}
+.more-info h1 {
+	display: block;
+	position: relative;
+	width: 100%;
+	text-align: center;
+	font-family: Francois One;
+	letter-spacing: 0.4px;
+}
+.closebtn {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	border: none;
+	outline: none;
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	background-color: lightgray;
+	color: gray;
+	font-size: 28px;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: 0.5s;
+	z-index: 4;
+}
+.closebtn:hover {
+	opacity: 0.8;
+}
+.closebtn i {
+	position: relative;
+	top: -1px;
+}
+
+.more-info .info-flex {
+	padding: 32px;
+	height: calc(100% - 108px);
+	overflow: auto;
+}
+
+.more-info .center.flex > * {
+	margin: 16px;
+}
+.more-info span, .more-info label {
+	font-size: 120%;
+	display: inline-block;
+	margin: 4px 4px;
 }
