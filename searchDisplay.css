@@ -50,6 +50,7 @@ tr:nth-child(even) {
 	left: calc(50% - 35px);
 	top: 50%;
 	z-index: 5;
+	opacity: 0.8;
 }
 
 #loader span {
@@ -149,7 +150,7 @@ tr:nth-child(even) {
 }
 
 .school-card {
-	width: 100%;
+	width: 80%;
 	max-width: 800px;
 	min-height: 350px;
 	display: block;
@@ -158,6 +159,7 @@ tr:nth-child(even) {
 	padding: 8px;
 	transition: box-shadow 0.25s;
 	background-color: #fafafa;
+	opacity: 0.8;
 }
 .school-card:hover {
 	box-shadow: 0 0 12px 2px rgba(200,200,200,0.8);
@@ -188,12 +190,18 @@ tr:nth-child(even) {
 	top: -1px;
 }
 
-#search-options > * {
-	margin: 16px;
+#search-options {
+	top: 48px;
+	position: relative;
+}
+
+#search-options > div {
 	padding: 16px;
+	min-width: 300px;
 	width: 40%;
+	height: 64px;
 	border: 2px solid lightgray;
-	margin: 16px;
+	margin: 12px;
 	padding: 8px;
 	transition: box-shadow 0.25s;
 	background-color: #fafafa;
@@ -203,8 +211,31 @@ tr:nth-child(even) {
 	width: 80px;
 }
 
-#search-options label {
+#search-options label:not([nofont]) {
 	font-size: 20px;
 	font-weight: 600;
 	font-family: Play;
+	margin-bottom: 8px;
+	display: inline-block;
+}
+#filtered-search-btn {
+	font-size: 20px;
+	width: 220px;
+	height: 40px;
+	color: white;
+	background-color: #d74e14;
+	border: none;
+	outline: none;
+	padding: 6px 8px;
+	cursor: pointer;
+}
+#filtered-search-btn:hover {
+	background-color: #e2632c;
+}
+
+i.infoicon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	text-align: center;
 }

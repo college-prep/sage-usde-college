@@ -19,37 +19,40 @@ const resultCont = document.querySelector('.result-container');
 var page = 0;
 var busy = false;
 var schoolName = "";
+var req_url = "";
 function doSearch() {
 	if (busy) return;
 	page = 0;
 	busy = true;
 	$('.school-card').remove();
 	startAnimate();
+	
 	schoolName = searchBox.value;
-	request(`https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=j7wcTx0TdVV4gl93JobRFSOspmmLOtdxO5gg0AeK
-		&page=0
-		&school.name=${encodeURIComponent(schoolName)}
-		&fields=
-			id,
-			school.name,
-			school.city,
-			school.state,
-			school.zip,
-			school.school_url,
-			school.price_calculator_url,
-			latest.student.size,
-			latest.student.enrollment.all,
-			latest.student.demographics.race_ethnicity,
-			latest.cost.avg_net_price,
-			latest.cost.tuition,
-			latest.admissions,
-			latest.admissions.admission_rate.overall,
-			latest.completion.completion_rate_4yr_100nt,
-			latest.earnings.10_yrs_after_entry.median,
-			latest.academics.program_percentage,
-			school.accreditor_code
-			`
-		.replace(/\s\n/g,''), function (result) {
+	req_url = `https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=j7wcTx0TdVV4gl93JobRFSOspmmLOtdxO5gg0AeK&sort=latest.earnings.10_yrs_after_entry.median:desc
+	&page=0
+	&school.name=${encodeURIComponent(schoolName)}
+	&fields=
+		id,
+		school.name,
+		school.city,
+		school.state,
+		school.zip,
+		school.school_url,
+		school.price_calculator_url,
+		latest.student.size,
+		latest.student.enrollment.all,
+		latest.student.demographics.race_ethnicity,
+		latest.cost.avg_net_price,
+		latest.cost.tuition,
+		latest.admissions,
+		latest.admissions.admission_rate.overall,
+		latest.completion.completion_rate_4yr_100nt,
+		latest.earnings.10_yrs_after_entry.median,
+		latest.academics.program_percentage,
+		school.accreditor_code
+	`
+	
+	request(req_url.replace(/\s\n/g,''), function (result) {
 			var collegeList = JSON.parse(result);
 			
 			console.log(collegeList);
@@ -96,12 +99,12 @@ function showCard(c) {
 		<data style="display: none;">${JSON.stringify(c)}</data>
 		<div class="flex">
 			<div>
-				<span><i class="fa fa-group"></i> ${(studentCount) ? studentCount + ' students' : 'Student count unknown'}</span> 
+				<span><i class="fa fa-group infoicon"></i> ${(studentCount) ? studentCount + ' students' : 'Student count unknown'}</span> 
 				<loc><i class="fa fa-map-marker"></i> ${ ((schoolCity) ? schoolCity + ', ' : '') + ((schoolState) ? schoolState : '' ) + ((schoolZip) ? ' ' + schoolZip : '')}</loc><br/>
-				<span>${(tuitionOut && (tuitionOut == tuitionIn)) ? 'Tuition: $' + tuitionOut : ((tuitionOut) ? 'Out of State Tuition: $' + tuitionOut : 'Tuition: unknown')}</span><br/>
-				${(tuitionIn && (tuitionIn != tuitionOut)) ? '<span>In-State Tuition: $' + tuitionIn + '</span><br/>': ''}
-				<span>Graduation Rate: ${(completeRate) ? completeRate + "%" : "unknown"}</span><br/>
-				<span>Median Earnings: ${(tenYrEarnings) ? '$' + tenYrEarnings : 'unknown'} per year</span><br/>
+				<span><i class="fa fa-money infoicon"></i> ${(tuitionOut && (tuitionOut == tuitionIn)) ? 'Tuition: $' + tuitionOut : ((tuitionOut) ? 'Out of State Tuition: $' + tuitionOut : 'Tuition: unknown')}</span><br/>
+				${(tuitionIn && (tuitionIn != tuitionOut)) ? '<span><i class="fa fa-money infoicon"></i> In-State Tuition: $' + tuitionIn + '</span><br/>': ''}
+				<span><i class="fa fa-graduation-cap infoicon"></i> Graduation Rate: ${(completeRate) ? completeRate + "%" : "unknown"}</span><br/>
+				<span><i class="fa fa-dollar infoicon"></i> Graduates&rsquo; Salary: ${(tenYrEarnings) ? '~$' + tenYrEarnings : 'unknown'} per year</span><br/>
 				<div id="piechart-${c.id}"></div>
 			</div>
 			<div class="center">
@@ -120,6 +123,7 @@ function showCard(c) {
 	resultCont.appendChild(sCard);
 	drawChart(c);
 	
+	hasResults = true;
 	busy = false;
 	stopAnimate();
 }
@@ -177,32 +181,11 @@ function drawChart(c) {
 
 searchBox.onsearch = doSearch;
 
+var hasResults = false;
 $(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() > $(document).height() - 10 && !busy) {
+   if($(window).scrollTop() + $(window).height() > $(document).height() - 10 && !busy && hasResults) {
 		busy = true;
-		request(`https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=j7wcTx0TdVV4gl93JobRFSOspmmLOtdxO5gg0AeK
-			&page=${page}
-			&school.name=${encodeURIComponent(schoolName)}
-			&fields=
-				id,
-				school.name,
-				school.city,
-				school.state,
-				school.zip,
-				school.school_url,
-				school.price_calculator_url,
-				latest.student.size,
-				latest.student.enrollment.all,
-				latest.student.demographics.race_ethnicity,
-				latest.cost.avg_net_price,
-				latest.cost.tuition,
-				latest.admissions,
-				latest.admissions.admission_rate.overall,
-				latest.completion.completion_rate_4yr_100nt,
-				latest.earnings.10_yrs_after_entry.median,
-				latest.academics.program_percentage,
-				school.accreditor_code
-			`
+		request(req_url.replace(/&page=[0-9]+/,'&page=' + page)
 			.replace(/\s\n/g,''), function (result) {
 			var collegeList = JSON.parse(result);
 			

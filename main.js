@@ -119,6 +119,7 @@ function doCORSRequest(options, printResult) {
 }
 
 function request(input_url, print) {
+	console.log(input_url);
 	doCORSRequest({
 		method: 'GET',
 		url: input_url,
