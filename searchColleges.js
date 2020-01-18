@@ -58,6 +58,7 @@ function doSearch() {
 			if (collegeList.results.length == 0) {
 				stopAnimate();
 				errElm.style.display = "";
+				busy = false;
 				return;
 			}
 			
