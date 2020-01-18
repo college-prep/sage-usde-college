@@ -146,8 +146,8 @@ function showCollege(c) {
 		completeRate	= Math.round(c['latest.completion.completion_rate_4yr_100nt']*100000)/1000,
 		tenYrEarnings	= c['latest.earnings.10_yrs_after_entry.median'],
 		acceptRate		= c['latest.admissions.admission_rate.overall'],
-		testSatScore	= c['latest.admissions.sat_scores.average.overall'],
-		testActScore	= c['latest.admissions.act_scores.midpoint.cumulative'],
+		testSatScore	= c['latest.admissions.sat_scores.average.overall']||'unknown',
+		testActScore	= c['latest.admissions.act_scores.midpoint.cumulative']||'unknown',
 		prgmPercents	= c['latest.academics.program_percentage'];
 	var SATall			= testSatScore,
 		SATread1		= c['latest.admissions.sat_scores.25th_percentile.critical_reading']||'unknown',
