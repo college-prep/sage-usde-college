@@ -205,13 +205,14 @@ tr:nth-child(even) {
 	padding: 8px;
 	transition: box-shadow 0.25s;
 	background-color: #fafafa;
+	text-align: center;
 }
 
 #search-options input[type="number"] {
 	width: 80px;
 }
 
-#search-options label:not([nofont]) {
+#search-options .label {
 	font-size: 20px;
 	font-weight: 600;
 	font-family: Play;

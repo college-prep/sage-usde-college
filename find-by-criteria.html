@@ -34,40 +34,40 @@
 		</span>
 		<h1 id="errElm" style="top:50%;text-align:center;color:#feffed;position:fixed;width:100%;text-shadow:black 1px 1px 2px;">Sorry, no results...</h1>
 		<div class="topnav">
-			<img src="logo_notext.png" width="36" style="margin: 2px;"/><span><button onclick="window.location.href='index.html';">Search Colleges</button><button class="selected" onclick="window.location.href='';">Find Best Fit</button><button onclick="window.location.href='sat-act-prep';">SAT/ACT Prep</button></span>
+			<img src="logo_notext.png" width="36" style="margin: 2px;"/><span><button onclick="window.location.href='index.html';">Search Colleges</button><button class="selected" onclick="resetPage()">Find Best Fit</button><button onclick="window.location.href='sat-act-prep';">SAT/ACT Prep</button></span>
 		</div>
 		<div class="search-bar" style="display: none;">
 			<input id="search-box" type="search" placeholder="Search for Universities..."/>
 		</div>
 		<div id="search-options" class="flex">
 			<div>
-				<input type="checkbox" id="c1"><label for="c1">SAT Score</label><br/>
+			<span class="label">SAT Score</span><br/>
 				<span id="i1">From <input type="number"/> to <input type="number"/></span>
 			</div>
 			<div>
-				<input type="checkbox" id="c2"><label for="c2">ACT Score</label><br/>
+			<span class="label">ACT Score</span><br/>
 				<span id="i2">From <input type="number"/> to <input type="number"/></span>
 			</div>
 			<div>
-				<input type="checkbox" id="c3"><label for="c3">Graduates&rsquo; Salary</label><br/>
+			<span class="label">Graduates&rsquo; Salary</span><br/>
 				<span id="i3">From <input type="number"/> to <input type="number"/></span>
 			</div>
 			<div>
-				<input type="checkbox" id="c4"><label for="c4">Acceptance Rate</label><br/>
+			<span class="label">Acceptance Rate (%)</span><br/>
 				<span id="i4">From <input type="number"/> to <input type="number"/></span>
 			</div>
 			<div>
-				<input type="checkbox" id="c5"><label for="c5">Tuition Cost</label><br/>
+			<span class="label">Tuition Cost</span><br/>
 				<span id="i5">From <input type="number"/> to <input type="number"/></span>
 			</div>
 			<div>
-				<input type="checkbox" id="c6"><label for="c6">Graduation Rate</label><br/>
+			<span class="label">Graduation Rate (%)</span><br/>
 				<span id="i6">From <input type="number"/> to <input type="number"/></span>
 			</div>
 			<div>
-				<input type="checkbox" id="c7"><label for="c7">Subject Interest</label><br/>
+			<span class="label">Subject Interest</span><br/>
 				<span id="i7">Select an Interest: <select>
-					<option hidden>Select...</option>
+					<option>Select...</option>
 					<option>Agriculture</option>
 					<option>Resources</option>
 					<option>Architecture</option>
@@ -110,16 +110,18 @@
 			</div>
 			<div>
 				<span>
-					<input type="checkbox" id="c8"><label for="c8">Sort Results</label>
+					<span class="label">Sort Results</span>
 					<span id="i8"><select id="sort-drop">
-						<option>None</option>
-						<option>SAT Score</option></option>
+						<option>Default</option>
+						<option>SAT Score</option>
 						<option>ACT Score</option>
 						<option>Salary of Graduates</option>
 						<option>Acceptance Rate</option>
+						<option>Programs of Interest</option>
 						<option>Tuition Cost</option>
 					</select></span>
-				</span><br/>
+				</span>
+				<br/>
 				<span>
 					<input id="sort-asc" type="radio" name="sort"/><label nofont for="sort-asc"><i class="fa fa-sort-numeric-asc"></i> Ascending</label>
 					<input id="sort-des" type="radio" name="sort"/><label nofont for="sort-des"><i class="fa fa-sort-numeric-desc"></i> Descending</label><br/>
@@ -135,66 +137,91 @@
 	<script src="main.js"></script>
 	<script src="searchColleges.js"></script>
 	<script>
+		function resetPage() {
+			if (busy) return;
+			document.querySelectorAll('.result-container *').forEach((e)=>(e.remove()));
+			document.querySelector('.result-container').style.display = "none";
+			document.getElementById('search-options').style.display = "";
+			document.getElementById('btn-container').style.display = "";
+			hasResults = false;
+			page = 0;
+			stopAnimate();
+			errElm.style.display = "none";
+		}
+		
 		function searchByFilters() {
 			document.getElementById('search-options').style.display = 'none';
 			document.getElementById('btn-container').style.display = 'none';
 			document.querySelector('.result-container').style = "";
 			if (busy) return;
-	page = 0;
-	busy = true;
-	$('.school-card').remove();
-	startAnimate();
-	
-	var sortDropdownValue = document.getElementById('sort-drop').value;
-	
-	var sortTerms = {
-		"SAT Score": "latest.admissions.sat_scores.average.overall",
-		"ACT Score": "latest.admissions.act_scores.midpoint.cumulative",
-		"Salary of Graduates": "latest.earnings.10_yrs_after_entry.median",
-		"Acceptance Rate": "latest.admissions.admission_rate.overall",
-		"Tuition Cost": "latest.cost.tuition.out_of_state"
-	}
-	
-	req_url = `https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=j7wcTx0TdVV4gl93JobRFSOspmmLOtdxO5gg0AeK&sort=${sortTerms[sortDropdownValue]}:${(document.getElementById('sort-asc').checked) ? 'asc' : 'desc'}
-		&page=0
-		&fields=
-			id,
-			school.name,
-			school.city,
-			school.state,
-			school.zip,
-			school.school_url,
-			school.price_calculator_url,
-			latest.student.size,
-			latest.student.enrollment.all,
-			latest.student.demographics.race_ethnicity,
-			latest.cost.avg_net_price,
-			latest.cost.tuition,
-			latest.admissions,
-			latest.admissions.admission_rate.overall,
-			latest.completion.completion_rate_4yr_100nt,
-			latest.earnings.10_yrs_after_entry.median,
-			latest.academics.program_percentage,
-			school.accreditor_code
-		`;
-	request(req_url.replace(/\s\n/g,''), function (result) {
-			var collegeList = JSON.parse(result);
+			page = 0;
+			busy = true;
+			$('.school-card').remove();
+			startAnimate();
 			
-			console.log(collegeList);
-			console.log(JSON.stringify(collegeList));
+			var vals = document.querySelectorAll('.flex input[type=number]');
 			
-			if (collegeList.results.length == 0) {
-				stopAnimate();
-				errElm.style.display = "";
-				busy = false;
-				return;
+			var sortDropdownValue = document.getElementById('sort-drop').value;
+			
+			var selectVal = document.getElementById('i7').querySelector('select').value;
+			var sortTerms = {
+				"SAT Score": "latest.admissions.sat_scores.average.overall",
+				"ACT Score": "latest.admissions.act_scores.midpoint.cumulative",
+				"Salary of Graduates": "latest.earnings.10_yrs_after_entry.median",
+				"Acceptance Rate": "latest.admissions.admission_rate.overall",
+				"Tuition Cost": "latest.cost.tuition.out_of_state",
+				"Default": "latest.earnings.10_yrs_after_entry.median",
+				"Programs of Interest": ((selectVal != "Select...") ? "latest.academics.program_percentage." + selectVal.replace(/\s/g,'_').toLowerCase() : 'latest.earnings.10_yrs_after_entry.median')
 			}
 			
-			collegeList.results.forEach(function(c) {
-				console.log(c['school.name'] + '\n' +  c['school.school_url'] + '\n' + c['latest.admissions.']);
-				showCard(c);
-			});
-		});page ++;
-	}
+			req_url = `https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=j7wcTx0TdVV4gl93JobRFSOspmmLOtdxO5gg0AeK&sort=${sortTerms[sortDropdownValue]}:${(document.getElementById('sort-asc').checked) ? 'asc' : 'desc'}
+				&page=0
+				&latest.admissions.sat_scores.average.overall__range=${vals[0].value||0}..${vals[1].value||''}
+				&latest.admissions.act_scores.midpoint.cumulative__range=${vals[2].value||0}..${vals[3].value||''}
+				&latest.earnings.10_yrs_after_entry.median__range=${vals[4].value||0}..${vals[5].value||''}
+				&latest.admissions.admission_rate.overall__range=${Number(vals[6].value)/100||0}..${Number(vals[7].value)/100||''}
+				&latest.cost.tuition.out_of_state__range=${vals[8].value||0}..${vals[9].value||''}
+				&latest.completion.completion_rate_4yr_100nt__range=${Number(vals[10].value)/100||0}..${Number(vals[11].value)/100||''}
+				${(selectVal != "Select...") ? '&latest.academics.program_percentage.' + selectVal.replace(/\s/g,'_').toLowerCase() + '__range=0.05..' : ''}
+				
+				&fields=
+					id,
+					school.name,
+					school.city,
+					school.state,
+					school.zip,
+					school.school_url,
+					school.price_calculator_url,
+					latest.student.size,
+					latest.student.enrollment.all,
+					latest.student.demographics.race_ethnicity,
+					latest.cost.avg_net_price,
+					latest.cost.tuition,
+					latest.admissions,
+					latest.admissions.admission_rate.overall,
+					latest.completion.completion_rate_4yr_100nt,
+					latest.earnings.10_yrs_after_entry.median,
+					latest.academics.program_percentage,
+					school.accreditor_code
+				`;
+			request(req_url.replace(/\s\n/g,''), function (result) {
+					var collegeList = JSON.parse(result);
+					
+					console.log(collegeList);
+					console.log(JSON.stringify(collegeList));
+					
+					if (collegeList.results.length == 0) {
+						stopAnimate();
+						errElm.style.display = "";
+						busy = false;
+						return;
+					}
+					
+					collegeList.results.forEach(function(c) {
+						console.log(c['school.name'] + '\n' +  c['school.school_url'] + '\n' + c['latest.admissions.']);
+						showCard(c);
+					});
+				});page ++;
+			}
 	</script>
 </html>
