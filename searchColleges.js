@@ -55,7 +55,7 @@ function doSearch() {
 			console.log(collegeList);
 			console.log(JSON.stringify(collegeList));
 			
-			if (collegeList.results.length == 0) {
+			if (collegeList.results.length == 0 && page == 0) {
 				stopAnimate();
 				errElm.style.display = "";
 				busy = false;
